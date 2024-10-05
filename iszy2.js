@@ -32,21 +32,17 @@ let humanScore = 0;
                 console.log(`Your Score: ${humanScore}, Comp Score: ${computerScore}`)
             } else if (humanChoice === 'rock' && computerChoice === 'scissors'
             || humanChoice === 'paper' && computerChoice === 'rock'
-            || humanChoice === 'scissors' && computerChoice === 'paper'
-            || humanChoice === 'rock' && computerChoice === 'scissors'){
+            || humanChoice === 'scissors' && computerChoice === 'paper'){
                 humanScore++;
                 console.log("You win " + humanChoice + " beats " + computerChoice)
                 console.log(`Your Score: ${humanScore}, Comp Score: ${computerScore}`)
             } else if (humanChoice === computerChoice){
                 console.log(`${humanChoice} "is the same as" ${computerChoice}`)
-                console.log(`Your Score: ${humanScore}, Comp Score: ${computerScore}`)
-            }   else {
-                console.log("cancelled")
-            }     
+            }        
             counter++
         }
-       
-        function playGame(playRound){
+
+        function playGame(){
             while (counter <= limit){
                 const humanChoice = getHumanChoice();
                 const computerChoice = getComputerChoice();
@@ -54,11 +50,10 @@ let humanScore = 0;
 
             if(humanScore > computerScore){
                 console.log("You win!");
-            } else if (humanScore < computerScore){
+            } else {
                 console.log("You loose!");
-            }  else if (humanScore === computerScore){
-               console.log ( "draw")
+            }
             }
         }
-    }
-        playGame(playRound)
+
+        playGame()
