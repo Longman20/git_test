@@ -1,64 +1,65 @@
-let humanScore = 0;
-        let computerScore = 0;
-        let counter = 1;
-        const limit = 5;
 
-        // function randomly returns one of three values: rock, paper or scissors
         function getComputerChoice(){
-            randomNumber = Math.random()
-            if (randomNumber <= 0.33){
-                return("rock");
-            } else if (randomNumber > 0.33 && randomNumber <= 0.66){
-                return("paper");
-            } else {
-                return("scissors");
+            let m=Math.floor(Math.random()*10-1)+1;
+            if (m<=4){
+            return "paper";
+            }else if(m>4&& m<=7) {
+                return "rock";
+            }else if(m>7&&m<=10){
+                return "scissors"
             }
         }
-
-        // function get the choice of one of three variants from user
-        function getHumanChoice(){
-            choice = prompt("Write your variant");
-            return choice
+        let choice=prompt("pick").toLowerCase()
+        function getPlayerChoice(){
+          if (choice=="paper"){
+            return"paper"
+          } else if (choice=="rock"){
+            return"rock"
+          }else if (choice=="scissors"){
+            return"scissors"
+          }
+          else if(choice!=="rock"||"paper"||"scissors"){
+            return "cancelled"
+          }
         }
-
-        function playRound(humanChoice, computerChoice){
-            humanChoice = humanChoice.toLowerCase();
-            console.log(humanChoice)
-            if (humanChoice === 'rock' && computerChoice === 'paper'
-            || humanChoice === 'paper' && computerChoice === 'scissors'
-            || humanChoice === 'scissors' && computerChoice === 'rock'){
-                computerScore++;
-                console.log("You loose " + computerChoice + " beats " + humanChoice)
-                console.log(`Your Score: ${humanScore}, Comp Score: ${computerScore}`)
-            } else if (humanChoice === 'rock' && computerChoice === 'scissors'
-            || humanChoice === 'paper' && computerChoice === 'rock'
-            || humanChoice === 'scissors' && computerChoice === 'paper'
-            || humanChoice === 'rock' && computerChoice === 'scissors'){
-                humanScore++;
-                console.log("You win " + humanChoice + " beats " + computerChoice)
-                console.log(`Your Score: ${humanScore}, Comp Score: ${computerScore}`)
-            } else if (humanChoice === computerChoice){
-                console.log(`${humanChoice} "is the same as" ${computerChoice}`)
-                console.log(`Your Score: ${humanScore}, Comp Score: ${computerScore}`)
-            }   else {
-                console.log("cancelled")
-            }     
-            counter++
-        }
-       
-        function playGame(playRound){
-            while (counter <= limit){
-                const humanChoice = getHumanChoice();
-                const computerChoice = getComputerChoice();
-                playRound(humanChoice, computerChoice);
-
-            if(humanScore > computerScore){
-                console.log("You win!");
-            } else if (humanScore < computerScore){
-                console.log("You loose!");
-            }  else if (humanScore === computerScore){
-               console.log ( "draw")
-            }
+        const computerSelection=getComputerChoice()
+        const playerSelection=getPlayerChoice()
+        function playRound(){
+           if (playerSelection=="paper"&&computerSelection=="rock"){
+            return 'you win';
+           }  else if(playerSelection=="paper"&&computerSelection=="scissors"){
+            return "you lose";
+           }else if(playerSelection=="paper"&&computerSelection=="paper"){
+            return "draw";
+           }else if(playerSelection=="rock"&&computerSelection=="paper"){
+            return "you lose"
+           }else if(playerSelection=="rock"&&computerSelection=="scissors"){
+            return "you win"
+           }else if(playerSelection=="rock"&&computerSelection=="rock"){
+            return"draw"
+           }else if(playerSelection=="scissors"&&computerSelection=="rock"){
+            return"you lose"
+        }else if(playerSelection=="scissors"&&computerSelection=="paper"){
+            return"you win"
+        }else if(playerSelection=="scissors"&&computerSelection=="scissors"){
+            return"draw"
+        }else if (playerSelection=="cancelled"){
+            return "cancelled"
         }
     }
-        playGame(playRound)
+        const Game=playRound()
+        function playGame(){
+            let playerScore=0;
+            let computerScore=0;
+            if (Game=="you win"){
+            return "USER WINS"; 
+            }else if(Game=="you lose"){
+                return "COMPUTER WINS"
+            }else if (Game=="draw"){
+                return "IT'S A TIE!!"
+            }else if(Game=="cancelled"){
+                return 'cancelled'
+            }
+        }
+      console.log (playGame())
+      
