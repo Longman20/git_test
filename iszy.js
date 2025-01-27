@@ -1,65 +1,77 @@
+let humanScore = 0;
+let computerScore = 0;
+let counter = 1;
+const limit = 5;
 
-        function getComputerChoice(){
-            let m=Math.floor(Math.random()*10-1)+1;
-            if (m<=4){
-            return "paper";
-            }else if(m>4&& m<=7) {
-                return "rock";
-            }else if(m>7&&m<=10){
-                return "scissors"
-            }
-        }
-        let choice=prompt("pick").toLowerCase()
-        function getPlayerChoice(){
-          if (choice=="paper"){
-            return"paper"
-          } else if (choice=="rock"){
-            return"rock"
-          }else if (choice=="scissors"){
-            return"scissors"
-          }
-          else if(choice!=="rock"||"paper"||"scissors"){
-            return "cancelled"
-          }
-        }
-        const computerSelection=getComputerChoice()
-        const playerSelection=getPlayerChoice()
-        function playRound(){
-           if (playerSelection=="paper"&&computerSelection=="rock"){
-            return 'you win';
-           }  else if(playerSelection=="paper"&&computerSelection=="scissors"){
-            return "you lose";
-           }else if(playerSelection=="paper"&&computerSelection=="paper"){
-            return "draw";
-           }else if(playerSelection=="rock"&&computerSelection=="paper"){
-            return "you lose"
-           }else if(playerSelection=="rock"&&computerSelection=="scissors"){
-            return "you win"
-           }else if(playerSelection=="rock"&&computerSelection=="rock"){
-            return"draw"
-           }else if(playerSelection=="scissors"&&computerSelection=="rock"){
-            return"you lose"
-        }else if(playerSelection=="scissors"&&computerSelection=="paper"){
-            return"you win"
-        }else if(playerSelection=="scissors"&&computerSelection=="scissors"){
-            return"draw"
-        }else if (playerSelection=="cancelled"){
-            return "cancelled"
-        }
+const rockBtn = document.getElementById('rockBtn');
+const paperBtn = document.getElementById('paperBtn');
+const scissorsBtn = document.getElementById('scissorsBtn');
+
+// Adding event listeners to the buttons
+rockBtn.addEventListener('click', () => {
+    playGame('Rock');
+});
+
+paperBtn.addEventListener('click', () => {
+    playGame('Paper');
+});
+
+scissorsBtn.addEventListener('click', () => {
+    playGame('Scissors');
+});
+
+// Function to randomly return one of three values: rock, paper, or scissors
+function getComputerChoice() {
+    const randomNumber = Math.random();
+    if (randomNumber <= 0.33) {
+        return 'Rock';
+    } else if (randomNumber <= 0.66) {
+        return 'Paper';
+    } else {
+        return 'Scissors';
     }
-        const Game=playRound()
-        function playGame(){
-            let playerScore=0;
-            let computerScore=0;
-            if (Game=="you win"){
-            return "USER WINS"; 
-            }else if(Game=="you lose"){
-                return "COMPUTER WINS"
-            }else if (Game=="draw"){
-                return "IT'S A TIE!!"
-            }else if(Game=="cancelled"){
-                return 'cancelled'
+}
+ const results = document.querySelector("#results");
+ const scores = document.querySelector("#scores");
+// Function to play a single round
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === 'Rock' && computerChoice === 'Paper'
+        || humanChoice === 'Paper' && computerChoice === 'Scissors'
+        || humanChoice === 'Scissors' && computerChoice === 'Rock') {
+        computerScore++;
+        results.textContent=`You lose! ${computerChoice} beats ${humanChoice}`;
+    } else if (humanChoice === 'Rock' && computerChoice === 'Scissors'
+        || humanChoice === 'Paper' && computerChoice === 'Rock'
+        || humanChoice === 'Scissors' && computerChoice === 'Paper') {
+        humanScore++;
+        results.textContent=`You win! ${humanChoice} beats ${computerChoice}`;
+    } else if (humanChoice === computerChoice) {
+        results.textContent=`It's a tie! Both chose ${humanChoice}`;
+    }
+    scores.textContent=`Your Score: ${humanScore}, Computer Score: ${computerScore}`;
+}
+
+// Function to play the game up to a limit of 5 rounds
+function playGame(humanChoice) {
+    if (counter <= limit) {
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+        const finalResult= document.querySelector("#finalResults");
+        counter++;
+       
+        if (counter > limit) {
+            if (humanScore > computerScore) {
+                finalResult.textContent='Game Over! You win the game!';
+            } else if (humanScore < computerScore) {
+                finalResult.textContent='Game Over! You lose the game!';
+            }else if (humanScore === computerScore){
+                finalResult.textContent = 'Draw, You are both good!!';
+            }
+             else {
+                finalResult.textContent='Game Over! It\'s a draw!';
             }
         }
-      console.log (playGame())
-      
+    } else {
+        finalResult.textContent="The game is over. Please refresh the page to start again.";
+    }
+}
