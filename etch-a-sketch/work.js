@@ -24,6 +24,15 @@ document.addEventListener("mousedown", () => (
     return n;
   }
 
+  function getRandomRGB() {
+  const r = Math.floor(Math.random() * 256); // 0–255
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+
+
   function buildGrid(n) {
     parentDiv.innerHTML = '';
     const squaresize = 960 / n;
@@ -33,12 +42,13 @@ document.addEventListener("mousedown", () => (
   square.className = "square";
   square.style.width = `${squaresize}px`;
   square.style.height = `${squaresize}px`;
+  const random= getRandomRGB()
   
   square.addEventListener("mouseover", () => {
-    if(isDrawing) square.style.backgroundColor = "black";
+    if(isDrawing) square.style.backgroundColor = random;
   });
   square.addEventListener("click", () => {
-    square.style.backgroundColor ="blue";
+    square.style.backgroundColor = random;
   });
   parentDiv.appendChild(square)
     }
