@@ -29,9 +29,7 @@ document.addEventListener("mousedown", () => (
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);
   return `rgb(${r}, ${g}, ${b})`;
-}
-
-
+  }
 
   function buildGrid(n) {
     parentDiv.innerHTML = '';
@@ -43,6 +41,7 @@ document.addEventListener("mousedown", () => (
   square.style.width = `${squaresize}px`;
   square.style.height = `${squaresize}px`;
   const random= getRandomRGB()
+
   
   square.addEventListener("mouseover", () => {
     if(isDrawing) square.style.backgroundColor = random;
@@ -50,8 +49,11 @@ document.addEventListener("mousedown", () => (
   square.addEventListener("click", () => {
     square.style.backgroundColor = random;
   });
+   
   parentDiv.appendChild(square)
     }
+  
+  
   }
   resetButton.addEventListener("click", ( )=>{
     const size = promptForSize();
